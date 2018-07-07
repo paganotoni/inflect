@@ -496,6 +496,9 @@ func TestTableize(t *testing.T) {
 	for klass, table := range ClassNameToTableName {
 		require.Equal(t, table, Tableize(klass))
 	}
+
+	require.Equal(t, "security.users", Tableize("security.users"))
+	require.Equal(t, "security.users", Tableize("security.User"))
 }
 
 func TestParameterize(t *testing.T) {

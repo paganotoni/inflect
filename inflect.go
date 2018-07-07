@@ -547,7 +547,10 @@ func (rs *Ruleset) ForeignKeyCondensed(word string) string {
 
 //Tableize Rails style pluralized table names: "SuperPerson" -> "super_people"
 func (rs *Ruleset) Tableize(word string) string {
-	return rs.Pluralize(rs.Underscore(rs.Typeify(word)))
+	parts := strings.Split(word, ".")
+	parts = append(parts[:(len(parts)-1)], rs.Pluralize(rs.Underscore(rs.Typeify(parts[(len(parts)-1)]))))
+
+	return strings.Join(parts, ".")
 }
 
 var notUrlSafe *regexp.Regexp = regexp.MustCompile(`[^\w\d\-_ ]`)
